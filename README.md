@@ -378,5 +378,4 @@ To maintain a clean version history while enabling reproduction from scratch:
 - **Generated Features Excluded:** Intermediate batch extractions in `data/features/` and local manifests in `data/manifests/` are excluded to prevent machine-specific absolute path leakage.
 - **Architecture Preserved:** All required folders contain `.gitkeep` files, ensuring that cloning the repository provides the exact directory skeleton needed to drop in raw datasets and run `python train_model.py`.
 - **Portable Model Bundled:** The lightweight production model `models/blur_classifier.pkl` (~156 KB) and metadata JSON are tracked in Git, enabling instant out-of-the-box inference without retraining.
-B l u r   I m a g e   C l a s s i f i e r  
- 
+Blur Image classifier
