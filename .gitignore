@@ -1,0 +1,98 @@
+# ==============================================================================
+# Byte-compiled / optimized / Python caches
+# ==============================================================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# ==============================================================================
+# Virtual Environments & Packaging
+# ==============================================================================
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+build/
+dist/
+*.egg-info/
+*.egg
+
+# ==============================================================================
+# IDEs, Editors & OS Files
+# ==============================================================================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# ==============================================================================
+# Testing & Profiling
+# ==============================================================================
+.pytest_cache/
+.coverage
+htmlcov/
+.ipynb_checkpoints
+
+# ==============================================================================
+# Raw Datasets (Exclude raw images & archives, keep directory architecture)
+# ==============================================================================
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.rar
+*.7z
+
+# Raw Kwentar Dataset images
+/blur_dataset/**
+!/blur_dataset/**/
+!/blur_dataset/**/.gitkeep
+
+# ==============================================================================
+# Generated Data & Intermediate Manifests / Features
+# ==============================================================================
+/data/features/**
+!/data/features/**/
+!/data/features/**/.gitkeep
+
+/data/manifests/**
+!/data/manifests/**/
+!/data/manifests/**/.gitkeep
+
+# ==============================================================================
+# Logs & Runtime Diagnostics
+# ==============================================================================
+/logs/*
+!/logs/.gitkeep
+*.log
+
+# ==============================================================================
+# Model Artifacts
+# ==============================================================================
+# Exclude heavy weights / temporary checkpoints
+*.pth
+*.pt
+*.ckpt
+*.h5
+*.weights
+
+# Preserve lightweight production model bundle & metadata
+!/models/blur_classifier.pkl
+!/models/blur_classifier_metadata.json
+!/models/.gitkeep
+
+# ==============================================================================
+# Architecture Preservation (Keep .gitkeep in all directories)
+# ==============================================================================
+!.gitkeep
+

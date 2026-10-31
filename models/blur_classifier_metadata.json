@@ -1,0 +1,101 @@
+{
+  "model_name": "SealScan Image Blur Classifier",
+  "model_filename": "blur_classifier.pkl",
+  "model_version": "1.0",
+  "model_type": "RandomForestClassifier",
+  "description": "Lightweight generic binary image blur classifier (sharpness quality gate for SealScan)",
+  "task": "binary_classification",
+  "classes": {
+    "0": "BLURRY",
+    "1": "NOT_BLURRY"
+  },
+  "labels_description": {
+    "0": "Defocus blurred or motion blurred image (insufficient sharpness for inspection)",
+    "1": "Sharp / in-focus image (sufficient sharpness for seal analysis)"
+  },
+  "feature_names": [
+    "laplacian_variance",
+    "edge_strength",
+    "noise",
+    "brenner_sharpness",
+    "canny_edge_density",
+    "fft_high_frequency_ratio",
+    "blur_effect"
+  ],
+  "num_features": 7,
+  "feature_order": [
+    "laplacian_variance",
+    "edge_strength",
+    "noise",
+    "brenner_sharpness",
+    "canny_edge_density",
+    "fft_high_frequency_ratio",
+    "blur_effect"
+  ],
+  "feature_descriptions": {
+    "laplacian_variance": "Variance of Laplacian operator (focus measure)",
+    "edge_strength": "Mean magnitude of Sobel gradient vectors (sqrt(gx^2 + gy^2))",
+    "noise": "Standard deviation of Gaussian residual (gray - GaussianBlur)",
+    "brenner_sharpness": "Brenner horizontal second-difference sharpness metric",
+    "canny_edge_density": "Proportion of edge pixels detected by Canny edge detector (100, 200)",
+    "fft_high_frequency_ratio": "Ratio of high-frequency spectral energy to total energy in 2D FFT",
+    "blur_effect": "Reblur / edge spread blur metric via skimage.measure.blur_effect"
+  },
+  "feature_importances": {
+    "fft_high_frequency_ratio": 0.390521,
+    "canny_edge_density": 0.260403,
+    "brenner_sharpness": 0.126796,
+    "edge_strength": 0.076083,
+    "laplacian_variance": 0.05111,
+    "noise": 0.050424,
+    "blur_effect": 0.044663
+  },
+  "hyperparameters": {
+    "n_estimators": 150,
+    "max_depth": 6,
+    "min_samples_leaf": 2,
+    "random_state": 42,
+    "class_weight": "balanced",
+    "n_jobs": 4
+  },
+  "training_details": {
+    "dataset": "Kwentar Blur Dataset",
+    "total_images": 1050,
+    "total_unique_scenes": 350,
+    "split_strategy": "Group-based by scene_id (0% scene leakage)",
+    "train_samples": 732,
+    "validation_samples": 156,
+    "test_samples": 162,
+    "dataset_url": "https://www.kaggle.com/datasets/kwentar/blur-dataset"
+  },
+  "test_performance": {
+    "accuracy": 0.9691,
+    "precision": 0.9298,
+    "recall_sharp": 0.9815,
+    "f1_score": 0.955,
+    "roc_auc": 0.9937,
+    "defocus_blur_recall": 1.0,
+    "motion_blur_recall": 0.9259,
+    "confusion_matrix": {
+      "true_blurry_pred_blurry": 104,
+      "true_blurry_pred_not_blurry": 4,
+      "true_not_blurry_pred_blurry": 1,
+      "true_not_blurry_pred_not_blurry": 53
+    }
+  },
+  "hardware_requirements": {
+    "device": "CPU (no GPU or CUDA required)",
+    "min_ram_mb": 256,
+    "peak_training_ram_mb": 69.3,
+    "model_file_size_kb": 155.9
+  },
+  "integration_spec": {
+    "input": "7 numerical float features in exact feature_order (or image file path via extract_features_from_path)",
+    "output": {
+      "probability_blurry": "float [0.0, 1.0] (P(class=0))",
+      "probability_not_blurry": "float [0.0, 1.0] (P(class=1))",
+      "discrete_prediction": "BLURRY | NOT_BLURRY (based on default 0.5 or custom SealScan threshold)"
+    },
+    "recommended_sealscan_threshold": 0.75
+  }
+}
